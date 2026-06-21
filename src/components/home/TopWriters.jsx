@@ -1,0 +1,99 @@
+"use client";
+
+import { motion } from "motion/react";
+import Link from "next/link";
+import { ArrowRight, BookOpen, TrendingUp } from "lucide-react";
+
+const WRITERS = [
+  { id: 1, name: "John Grisham",    books: 32, sales: "12.5K", avatar: "JG" },
+  { id: 2, name: "J.K. Rowling",    books: 28, sales: "10.2K", avatar: "JK" },
+  { id: 3, name: "Colleen Hoover",  books: 18, sales: "9.8K",  avatar: "CH" },
+];
+
+const AVATAR_COLORS = ["#22C55E", "#16A34A", "#15803D"];
+
+export default function TopWriters() {
+  return (
+    <section
+      className="py-20 px-6 lg:px-8"
+      style={{ backgroundColor: "#060F09" }}
+    >
+      <div className="max-w-7xl mx-auto">
+
+        {/* Header */}
+        <div className="flex items-end justify-between mb-10">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest mb-2" style={{ color: "#22C55E" }}>
+              Community
+            </p>
+            <h2
+              className="text-3xl font-bold"
+              style={{ fontFamily: "'Playfair Display', serif", color: "#F0FDF4" }}
+            >
+              Top Writers
+            </h2>
+          </div>
+          <Link
+            href="/writers"
+            className="hidden sm:flex items-center gap-1.5 text-sm font-medium"
+            style={{ color: "#22C55E" }}
+          >
+            View all <ArrowRight size={14} />
+          </Link>
+        </div>
+
+        {/* Writers Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {WRITERS.map((writer, i) => (
+            <motion.div
+              key={writer.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="rounded-2xl p-6 flex items-center gap-4 transition-all duration-200"
+              style={{
+                backgroundColor: "#111F16",
+                border: "1px solid #1E3A26",
+              }}
+              onMouseEnter={e => e.currentTarget.style.borderColor = "#22C55E"}
+              onMouseLeave={e => e.currentTarget.style.borderColor = "#1E3A26"}
+            >
+              {/* Avatar */}
+              <div
+                className="w-14 h-14 rounded-2xl flex items-center justify-center text-lg font-bold flex-shrink-0"
+                style={{ backgroundColor: AVATAR_COLORS[i], color: "#0A1A0F" }}
+              >
+                {writer.avatar}
+              </div>
+
+              {/* Info */}
+              <div className="flex-1 min-w-0">
+                <h3
+                  className="font-semibold text-base truncate"
+                  style={{ color: "#F0FDF4" }}
+                >
+                  {writer.name}
+                </h3>
+                <div className="flex items-center gap-3 mt-1">
+                  <div className="flex items-center gap-1">
+                    <BookOpen size={12} style={{ color: "#6B9E7A" }} />
+                    <span className="text-xs" style={{ color: "#6B9E7A" }}>
+                      {writer.books} Books
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <TrendingUp size={12} style={{ color: "#22C55E" }} />
+                    <span className="text-xs" style={{ color: "#22C55E" }}>
+                      {writer.sales} Sales
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

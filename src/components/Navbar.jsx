@@ -36,7 +36,7 @@ export default function Navbar() {
         {/* LOGO */}
         <Link href="/" className="flex items-center gap-3 group">
           <div className="relative w-9 h-9 flex-shrink-0">
-            <Image src="/logo.png" alt="Fable Logo" fill className="object-contain" />
+            <Image src="/logo1.png" alt="Fable Logo" fill className="object-contain" />
           </div>
           <span
             className="text-xl font-bold tracking-wide"

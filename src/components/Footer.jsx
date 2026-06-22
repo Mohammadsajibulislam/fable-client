@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Image from "next/image";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
@@ -44,7 +45,7 @@ export default function Footer() {
           <div className="space-y-5">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="relative w-8 h-8">
-                <Image src="/logo.png" alt="Fable" fill className="object-contain" />
+                <Image src="/logo1.png" alt="Fable" fill className="object-contain" />
               </div>
               <span
                 className="text-lg font-bold"
@@ -193,7 +194,7 @@ export default function Footer() {
           className="mt-14 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 border-t text-sm"
           style={{ borderColor: "#1E3A26", color: "#6B9E7A" }}
         >
-          <p>© 2025 Fable. All rights reserved.</p>
+          <p>© 2026 Fable. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy

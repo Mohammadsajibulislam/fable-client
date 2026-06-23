@@ -69,7 +69,7 @@ export default function DashboardSidebar({ user }) {
                 style={{ borderColor: "#1E3A26" }}
             >
                 <div className="relative w-8 h-8">
-                    <Image src="/logo.png" alt="Fable" fill className="object-contain" />
+                    <Image src="/logo1.png" alt="Fable" fill className="object-contain" />
                 </div>
                 <span
                     className="text-lg font-bold"

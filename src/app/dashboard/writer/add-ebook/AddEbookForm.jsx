@@ -7,7 +7,7 @@ import { MdCloudUpload } from "react-icons/md";
 const GENRES = [
     "Fiction", "Mystery", "Romance",
     "Sci-Fi", "Fantasy", "Horror",
-    "Thriller", "Self-Help",
+    "Thriller","Programming", "Self-Help",
 ];
 
 export default function AddEbookForm({ writer }) {

@@ -22,14 +22,30 @@ export default function EbookDetailsClient({ ebook }) {
 
     const isOwnBook = user?.id === ebook.writerId;
 
-    const handleBuyNow = () => {
-        if (!user) {
-            router.push(`/auth/signin?redirect=/ebooks/${ebook._id}`);
-            return;
-        }
-        // Stripe checkout — পরে যোগ হবে
-        router.push(`/checkout/${ebook._id}`);
-    };
+    const handleBuyNow = async () => {
+    if (!user) {
+        router.push(`/auth/signin?redirect=/ebooks/${ebook._id}`);
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/checkout_sessions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+        ebookId: ebook._id,
+        title: ebook.title,
+        price: ebook.price,
+        coverImage: ebook.coverImage,
+    }),
+});
+
+        const { url } = await res.json();
+        if (url) window.location.href = url;
+    } catch (err) {
+        console.error('Checkout error:', err);
+    }
+};
 
     const handleBookmark = async () => {
         if (!user) {

@@ -12,7 +12,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/banner.png"
+          src="/banner1.png"
           alt="Fable Hero"
           fill
           className="object-cover object-center"

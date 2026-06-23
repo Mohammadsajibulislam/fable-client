@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Fable — Ebook Sharing Platform
 
-First, run the development server:
+A digital platform connecting ebook lovers, readers, and collectors with talented writers.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Live URL
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[https://fable-client.vercel.app](https://fable-client.vercel.app)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Browse, search, filter and sort ebooks
+- Role-based authentication (User, Writer, Admin)
+- Writers can upload and manage ebooks with ImgBB image hosting
+- Stripe payment integration for ebook purchases
+- User dashboard with purchase history and bookmarks
+- Writer dashboard with ebook management and sales history
+- Admin dashboard with analytics charts (Recharts)
+- Server-side pagination and search
+- Responsive design with dark green theme
 
-## Learn More
+## npm Packages Used
 
-To learn more about Next.js, take a look at the following resources:
+- next, react, react-dom
+- better-auth (authentication)
+- mongodb (database)
+- stripe, @stripe/stripe-js (payment)
+- motion (animations)
+- recharts (charts)
+- react-icons (icons)
+- @heroui/react, @heroui/styles (UI components)
+- tailwindcss (styling)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Admin Credentials
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Email: admin@fable.com
+- Password: Admin@123

@@ -1,11 +1,10 @@
-
 # Fable — Ebook Sharing Platform
 
 A digital platform connecting ebook lovers, readers, and collectors with talented writers.
 
 ## Live URL
 
-[https://fable-client.vercel.app](https://fable-client.vercel.app)
+[https://fable-client-theta.vercel.app/](https://fable-client-theta.vercel.app/)
 
 ## Key Features
 

@@ -12,7 +12,7 @@ export default function HeroSection() {
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
-          src="/banner1.png"
+          src="/hero_banner.png"
           alt="Fable Hero"
           fill
           className="object-cover object-center"
@@ -23,7 +23,7 @@ export default function HeroSection() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, rgba(10,26,15,0.97) 10%, rgba(10,26,15,0.75) 10%, rgba(10,26,15,0.4) 50%)",
+              "linear-gradient(to right, rgba(10,26,15,0.97) 5%, rgba(10,26,15,0.75) 10%, rgba(10,26,15,0.4) 30%)",
           }}
         />
       </div>
@@ -70,7 +70,7 @@ export default function HeroSection() {
             style={{ color: "#6B9E7A" }}
           >
             A digital platform for book lovers and talented writers.
-            Discover stories that inspire you.
+          <br />  Discover stories that inspire you.
           </motion.p>
 
           {/* CTA Buttons */}

@@ -1,9 +1,15 @@
 import { requireRole } from "@/lib/core/session";
 import { protectedFetch } from "@/lib/core/server";
 
-export default async function TransactionsPage() {
+export default async function AdminTransactionsPage() {
     await requireRole("admin");
-    const transactions = await protectedFetch("/api/transactions");
+
+    let transactions = [];
+    try {
+        transactions = await protectedFetch("/api/transactions") || [];
+    } catch {
+        transactions = [];
+    }
 
     return (
         <div className="space-y-6">
@@ -29,14 +35,7 @@ export default async function TransactionsPage() {
                 <table className="w-full text-sm">
                     <thead>
                         <tr style={{ backgroundColor: "#0A1A0F" }}>
-                            {[
-                                "Transaction ID",
-                                "Type",
-                                "User",
-                                "Amount",
-                                "Date",
-                                "Status",
-                            ].map((h) => (
+                            {["Transaction ID", "Type", "User", "Amount", "Date", "Status"].map((h) => (
                                 <th
                                     key={h}
                                     className="text-left px-5 py-3 text-xs font-semibold uppercase tracking-wider"
@@ -48,7 +47,7 @@ export default async function TransactionsPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {transactions?.length === 0 ? (
+                        {!transactions || transactions.length === 0 ? (
                             <tr>
                                 <td
                                     colSpan={6}
@@ -59,60 +58,43 @@ export default async function TransactionsPage() {
                                 </td>
                             </tr>
                         ) : (
-                            transactions?.map((t, i) => (
+                            transactions.map((t, i) => (
                                 <tr
                                     key={t._id}
                                     className="border-t"
                                     style={{
                                         borderColor: "#1E3A26",
-                                        backgroundColor:
-                                            i % 2 === 0 ? "#111F16" : "#0D1A11",
+                                        backgroundColor: i % 2 === 0 ? "#111F16" : "#0D1A11",
                                     }}
                                 >
-                                    <td
-                                        className="px-5 py-4 font-mono text-xs"
-                                        style={{ color: "#6B9E7A" }}
-                                    >
+                                    <td className="px-5 py-4 font-mono text-xs" style={{ color: "#6B9E7A" }}>
                                         {t.stripeSessionId?.slice(0, 16)}...
                                     </td>
                                     <td className="px-5 py-4">
                                         <span
                                             className="px-2.5 py-1 rounded-full text-xs font-medium capitalize"
                                             style={{
-                                                backgroundColor:
-                                                    "rgba(34,197,94,0.1)",
+                                                backgroundColor: "rgba(34,197,94,0.1)",
                                                 color: "#22C55E",
                                             }}
                                         >
                                             {t.type}
                                         </span>
                                     </td>
-                                    <td
-                                        className="px-5 py-4"
-                                        style={{ color: "#6B9E7A" }}
-                                    >
+                                    <td className="px-5 py-4" style={{ color: "#6B9E7A" }}>
                                         {t.userEmail}
                                     </td>
-                                    <td
-                                        className="px-5 py-4 font-semibold"
-                                        style={{ color: "#22C55E" }}
-                                    >
+                                    <td className="px-5 py-4 font-semibold" style={{ color: "#22C55E" }}>
                                         ${t.amount}
                                     </td>
-                                    <td
-                                        className="px-5 py-4"
-                                        style={{ color: "#6B9E7A" }}
-                                    >
-                                        {new Date(
-                                            t.createdAt
-                                        ).toLocaleDateString()}
+                                    <td className="px-5 py-4" style={{ color: "#6B9E7A" }}>
+                                        {new Date(t.createdAt).toLocaleDateString()}
                                     </td>
                                     <td className="px-5 py-4">
                                         <span
                                             className="px-2.5 py-1 rounded-full text-xs font-medium"
                                             style={{
-                                                backgroundColor:
-                                                    "rgba(34,197,94,0.1)",
+                                                backgroundColor: "rgba(34,197,94,0.1)",
                                                 color: "#22C55E",
                                             }}
                                         >

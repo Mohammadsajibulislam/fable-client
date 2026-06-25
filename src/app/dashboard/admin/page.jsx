@@ -4,16 +4,21 @@ import AdminStats from "./AdminStats";
 export default async function AdminDashboardPage() {
     const user = await requireRole("admin");
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/stats`,
-        { cache: "no-store" }
-    );
-    const stats = await res.json();
+    let stats = {};
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/stats`,
+            { cache: "no-store" }
+        );
+        if (res.ok) {
+            stats = await res.json();
+        }
+    } catch {
+        stats = {};
+    }
 
     return (
         <div className="space-y-8">
-
-            {/* Welcome */}
             <div>
                 <h2
                     className="text-2xl font-bold"

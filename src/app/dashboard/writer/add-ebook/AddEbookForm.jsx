@@ -54,49 +54,60 @@ export default function AddEbookForm({ writer }) {
         }
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError("");
 
-        if (!coverImage) {
-            setError("Please upload a cover image.");
-            return;
-        }
+    if (!coverImage) {
+        setError("Please upload a cover image.");
+        return;
+    }
 
-        const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(e.currentTarget);
+    const data = Object.fromEntries(formData.entries());
 
-        const payload = {
-            ...data,
-            price: parseFloat(data.price),
-            coverImage,
-            writerId: writer.id,
-            writerName: writer.name,
-            status: "published",
-            isSold: false,
-        };
-
-        setIsLoading(true);
-        try {
-            const res = await fetch(
-                `${process.env.NEXT_PUBLIC_BASE_URL}/api/ebooks`,
-                {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload),
-                }
-            );
-            const result = await res.json();
-            if (result.insertedId) {
-                router.push("/dashboard/writer/ebooks");
-            }
-        } catch {
-            setError("Failed to create ebook.");
-        } finally {
-            setIsLoading(false);
-        }
+    const payload = {
+        ...data,
+        price: parseFloat(data.price),
+        coverImage,
+        writerId: writer.id,
+        writerName: writer.name,
+        status: "published",
+        isSold: false,
     };
 
+    setIsLoading(true);
+    try {
+        // Token নেওয়া
+        const { authClient } = await import("@/lib/auth-client");
+        const session = authClient.getSession
+            ? await authClient.getSession()
+            : null;
+        const token = session?.session?.token || "";
+
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/ebooks`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(payload),
+            }
+        );
+        const result = await res.json();
+        if (result.insertedId) {
+            router.push("/dashboard/writer/ebooks");
+        } else {
+            setError("Failed to create ebook.");
+        }
+    } catch {
+        setError("Failed to create ebook.");
+    } finally {
+        setIsLoading(false);
+    }
+};
     return (
         <form
             onSubmit={handleSubmit}

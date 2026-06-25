@@ -1,10 +1,21 @@
 import Link from "next/link";
-import { getFeaturedEbooks } from "@/lib/api/ebooks";
 import { ArrowRight } from "lucide-react";
 import FeaturedEbooksClient from "./FeaturedEbooksClient";
 
 export default async function FeaturedEbooks() {
-    const ebooks = await getFeaturedEbooks() || [];
+    let ebooks = [];
+
+    try {
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BASE_URL}/api/ebooks/featured`,
+            { cache: "no-store" }
+        );
+        if (res.ok) {
+            ebooks = await res.json();
+        }
+    } catch {
+        ebooks = [];
+    }
 
     return (
         <section className="py-20 px-6 lg:px-8">

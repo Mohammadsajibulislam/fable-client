@@ -54,7 +54,7 @@ export default function PopularGenres() {
               whileHover={{ scale: 1.05 }}
             >
               <Link
-                href={`/ebooks?genre=${genre.name.toLowerCase()}`}
+                href={`/ebooks?genre=${genre.name}`}
                 className="flex flex-col items-center gap-3 p-5 rounded-2xl transition-all duration-200"
                 style={{ backgroundColor: "#111F16", border: "1px solid #1E3A26" }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = genre.color}

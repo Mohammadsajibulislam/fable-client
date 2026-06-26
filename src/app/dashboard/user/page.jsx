@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import { requireRole } from "@/lib/core/session";
 import { MdOutlineMenuBook, MdBookmark, MdPayment } from "react-icons/md";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";

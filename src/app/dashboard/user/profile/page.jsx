@@ -4,15 +4,26 @@ import { MdPerson, MdEmail, MdCalendarToday } from "react-icons/md";
 export default async function UserProfilePage() {
     const user = await requireRole("user");
 
+    const fields = [
+        { icon: MdPerson, label: "Full Name", value: user?.name },
+        { icon: MdEmail, label: "Email", value: user?.email },
+        {
+            icon: MdCalendarToday,
+            label: "Member Since",
+            value: user?.createdAt
+                ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                      year: "numeric", month: "long", day: "numeric",
+                  })
+                : "N/A",
+        },
+    ];
+
     return (
         <div className="space-y-6">
             <div>
                 <h2
                     className="text-2xl font-bold"
-                    style={{
-                        fontFamily: "'Playfair Display', serif",
-                        color: "#F0FDF4",
-                    }}
+                    style={{ fontFamily: "'Playfair Display', serif", color: "#F0FDF4" }}
                 >
                     My Profile
                 </h2>
@@ -23,10 +34,7 @@ export default async function UserProfilePage() {
 
             <div
                 className="rounded-2xl p-8 max-w-lg"
-                style={{
-                    backgroundColor: "#111F16",
-                    border: "1px solid #1E3A26",
-                }}
+                style={{ backgroundColor: "#111F16", border: "1px solid #1E3A26" }}
             >
                 {/* Avatar */}
                 <div className="flex items-center gap-5 mb-8">
@@ -37,37 +45,21 @@ export default async function UserProfilePage() {
                         {user?.name?.[0]?.toUpperCase()}
                     </div>
                     <div>
-                        <h3
-                            className="text-xl font-bold"
-                            style={{ color: "#F0FDF4" }}
-                        >
+                        <h3 className="text-xl font-bold" style={{ color: "#F0FDF4" }}>
                             {user?.name}
                         </h3>
                         <span
-                            className="text-xs px-2.5 py-1 rounded-full font-medium capitalize"
-                            style={{
-                                backgroundColor: "rgba(34,197,94,0.1)",
-                                color: "#22C55E",
-                            }}
+                            className="text-xs px-2.5 py-1 rounded-full font-medium mt-1 inline-block capitalize"
+                            style={{ backgroundColor: "rgba(34,197,94,0.1)", color: "#22C55E" }}
                         >
                             {user?.role}
                         </span>
                     </div>
                 </div>
 
-                {/* Info */}
+                {/* Info Fields */}
                 <div className="space-y-4">
-                    {[
-                        { icon: MdPerson, label: "Full Name", value: user?.name },
-                        { icon: MdEmail, label: "Email", value: user?.email },
-                        { icon: MdCalendarToday, label: "Member Since",
-                            value: user?.createdAt
-                                ? new Date(user.createdAt).toLocaleDateString("en-US", {
-                                    year: "numeric", month: "long", day: "numeric"
-                                })
-                                : "N/A"
-                        },
-                    ].map((item) => (
+                    {fields.map((item) => (
                         <div
                             key={item.label}
                             className="flex items-center gap-4 p-4 rounded-xl"
@@ -75,21 +67,13 @@ export default async function UserProfilePage() {
                         >
                             <div
                                 className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
-                                style={{
-                                    backgroundColor: "rgba(34,197,94,0.1)",
-                                    color: "#22C55E",
-                                }}
+                                style={{ backgroundColor: "rgba(34,197,94,0.1)", color: "#22C55E" }}
                             >
                                 <item.icon size={18} />
                             </div>
                             <div>
-                                <p className="text-xs" style={{ color: "#6B9E7A" }}>
-                                    {item.label}
-                                </p>
-                                <p
-                                    className="text-sm font-medium mt-0.5"
-                                    style={{ color: "#F0FDF4" }}
-                                >
+                                <p className="text-xs" style={{ color: "#6B9E7A" }}>{item.label}</p>
+                                <p className="text-sm font-medium mt-0.5" style={{ color: "#F0FDF4" }}>
                                     {item.value}
                                 </p>
                             </div>

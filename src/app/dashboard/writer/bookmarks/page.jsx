@@ -8,9 +8,7 @@ export default async function WriterBookmarksPage() {
 
     let bookmarks = [];
     try {
-        bookmarks = await protectedFetch(
-            `/api/bookmarks?userId=${user.id}`
-        ) || [];
+        bookmarks = await protectedFetch(`/api/bookmarks?userId=${user.id}`) || [];
     } catch {
         bookmarks = [];
     }
@@ -20,10 +18,7 @@ export default async function WriterBookmarksPage() {
             <div>
                 <h2
                     className="text-2xl font-bold"
-                    style={{
-                        fontFamily: "'Playfair Display', serif",
-                        color: "#F0FDF4",
-                    }}
+                    style={{ fontFamily: "'Playfair Display', serif", color: "#F0FDF4" }}
                 >
                     Bookmarks
                 </h2>
@@ -32,22 +27,13 @@ export default async function WriterBookmarksPage() {
                 </p>
             </div>
 
-            {bookmarks?.length === 0 ? (
+            {!bookmarks || bookmarks.length === 0 ? (
                 <div
                     className="rounded-2xl p-12 text-center"
-                    style={{
-                        backgroundColor: "#111F16",
-                        border: "1px solid #1E3A26",
-                    }}
+                    style={{ backgroundColor: "#111F16", border: "1px solid #1E3A26" }}
                 >
-                    <MdBookmark
-                        size={40}
-                        className="mx-auto mb-3"
-                        style={{ color: "#1E3A26" }}
-                    />
-                    <p className="text-sm mb-4" style={{ color: "#6B9E7A" }}>
-                        No bookmarks yet.
-                    </p>
+                    <MdBookmark size={40} className="mx-auto mb-3" style={{ color: "#1E3A26" }} />
+                    <p className="text-sm mb-4" style={{ color: "#6B9E7A" }}>No bookmarks yet.</p>
                     <Link
                         href="/ebooks"
                         className="px-5 py-2.5 rounded-xl text-sm font-semibold"
@@ -58,12 +44,8 @@ export default async function WriterBookmarksPage() {
                 </div>
             ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
-                    {bookmarks?.map((b) => (
-                        <Link
-                            key={b._id}
-                            href={`/ebooks/${b.ebookId}`}
-                            className="group block"
-                        >
+                    {bookmarks.map((b) => (
+                        <Link key={b._id} href={`/ebooks/${b.ebookId}`} className="group block">
                             <div
                                 className="rounded-xl overflow-hidden aspect-[2/3] mb-3"
                                 style={{ border: "1px solid #1E3A26" }}

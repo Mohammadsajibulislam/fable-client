@@ -16,10 +16,7 @@ export default async function AdminTransactionsPage() {
             <div>
                 <h2
                     className="text-2xl font-bold"
-                    style={{
-                        fontFamily: "'Playfair Display', serif",
-                        color: "#F0FDF4",
-                    }}
+                    style={{ fontFamily: "'Playfair Display', serif", color: "#F0FDF4" }}
                 >
                     All Transactions
                 </h2>
@@ -28,10 +25,7 @@ export default async function AdminTransactionsPage() {
                 </p>
             </div>
 
-            <div
-                className="rounded-2xl overflow-hidden"
-                style={{ border: "1px solid #1E3A26" }}
-            >
+            <div className="rounded-2xl overflow-hidden" style={{ border: "1px solid #1E3A26" }}>
                 <table className="w-full text-sm">
                     <thead>
                         <tr style={{ backgroundColor: "#0A1A0F" }}>
@@ -73,10 +67,7 @@ export default async function AdminTransactionsPage() {
                                     <td className="px-5 py-4">
                                         <span
                                             className="px-2.5 py-1 rounded-full text-xs font-medium capitalize"
-                                            style={{
-                                                backgroundColor: "rgba(34,197,94,0.1)",
-                                                color: "#22C55E",
-                                            }}
+                                            style={{ backgroundColor: "rgba(34,197,94,0.1)", color: "#22C55E" }}
                                         >
                                             {t.type}
                                         </span>
@@ -93,10 +84,7 @@ export default async function AdminTransactionsPage() {
                                     <td className="px-5 py-4">
                                         <span
                                             className="px-2.5 py-1 rounded-full text-xs font-medium"
-                                            style={{
-                                                backgroundColor: "rgba(34,197,94,0.1)",
-                                                color: "#22C55E",
-                                            }}
+                                            style={{ backgroundColor: "rgba(34,197,94,0.1)", color: "#22C55E" }}
                                         >
                                             {t.status}
                                         </span>

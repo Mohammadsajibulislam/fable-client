@@ -12,7 +12,7 @@ export default function HeroSection() {
       {/* Background Image — Desktop */}
 <div className="absolute inset-0 z-0 hidden md:block">
     <Image
-        src="/banner1.png"
+        src="/hero_banner.png"
         alt="Fable Hero"
         fill
         className="object-cover object-center"

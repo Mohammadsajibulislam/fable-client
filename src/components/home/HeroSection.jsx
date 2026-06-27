@@ -9,24 +9,39 @@ export default function HeroSection() {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden">
 
-      {/* Background Image */}
-      <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero_banner.png"
-          alt="Fable Hero"
-          fill
-          className="object-cover object-center"
-          priority
-        />
-        {/* Gradient Overlay — left side dark, right side সামান্য দেখা যাবে */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(10,26,15,0.97) 5%, rgba(10,26,15,0.75) 10%, rgba(10,26,15,0.4) 30%)",
-          }}
-        />
-      </div>
+      {/* Background Image — Desktop */}
+<div className="absolute inset-0 z-0 hidden md:block">
+    <Image
+        src="/banner1.png"
+        alt="Fable Hero"
+        fill
+        className="object-cover object-center"
+        priority
+    />
+    <div
+        className="absolute inset-0"
+        style={{
+            background: "linear-gradient(to right, rgba(10,26,15,0.97) 10%, rgba(10,26,15,0.75) 40%, rgba(10,26,15,0.4) 50%)",
+        }}
+    />
+</div>
+
+{/* Background Image — Mobile */}
+<div className="absolute inset-0 z-0 block md:hidden">
+    <Image
+        src="/hero_banner_mobile.png"
+        alt="Fable Hero Mobile"
+        fill
+        className="object-cover object-center"
+        priority
+    />
+    <div
+        className="absolute inset-0"
+        style={{
+            background: "linear-gradient(to bottom, rgba(10,26,15,0.6) 5%, rgba(10,26,15,0.95) 90%)",
+        }}
+    />
+</div>
 
       {/* Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full">

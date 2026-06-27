@@ -1,13 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
-import { MdEmail } from "react-icons/md";
+import { MdEmail, MdCheckCircle } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
+// Toast Component
+function Toast({ message, type, onClose }) {
+    useEffect(() => {
+        const timer = setTimeout(onClose, 3000);
+        return () => clearTimeout(timer);
+    }, [onClose]);
+
+    return (
+        <div
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
+            style={{
+                backgroundColor: type === "success"
+                    ? "rgba(34,197,94,0.15)"
+                    : "rgba(220,38,38,0.15)",
+                border: `1px solid ${type === "success" ? "#22C55E" : "#DC2626"}`,
+                color: type === "success" ? "#86EFAC" : "#FCA5A5",
+            }}
+        >
+            <MdCheckCircle
+                size={18}
+                style={{ color: type === "success" ? "#22C55E" : "#DC2626" }}
+            />
+            {message}
+        </div>
+    );
+}
 
 export default function SignInPage() {
     const [email, setEmail] = useState("");
@@ -15,7 +42,12 @@ export default function SignInPage() {
     const [isVisible, setIsVisible] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState("");
+    const [toast, setToast] = useState(null);
     const router = useRouter();
+
+    const showToast = (message, type = "success") => {
+        setToast({ message, type });
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -30,11 +62,14 @@ export default function SignInPage() {
 
             if (authError) {
                 setError(authError.message || "Invalid email or password.");
+                showToast(authError.message || "Sign in failed.", "error");
             } else {
-                router.push("/");
+                showToast("Welcome back! Signed in successfully.");
+                setTimeout(() => router.push("/"), 1500);
             }
         } catch (err) {
             setError("An unexpected error occurred.");
+            showToast("An unexpected error occurred.", "error");
         } finally {
             setIsLoading(false);
         }
@@ -45,8 +80,16 @@ export default function SignInPage() {
             className="min-h-screen flex items-center justify-center px-4 py-16"
             style={{ backgroundColor: "#0A1A0F" }}
         >
-            <div className="w-full max-w-md">
+            {/* Toast */}
+            {toast && (
+                <Toast
+                    message={toast.message}
+                    type={toast.type}
+                    onClose={() => setToast(null)}
+                />
+            )}
 
+            <div className="w-full max-w-md">
                 {/* Logo */}
                 <div className="flex flex-col items-center mb-8">
                     <div className="relative w-12 h-12 mb-3">
@@ -154,11 +197,7 @@ export default function SignInPage() {
                         {/* Link */}
                         <p className="text-center text-sm" style={{ color: "#6B9E7A" }}>
                             New to Fable?{" "}
-                            <Link
-                                href="/auth/signup"
-                                className="font-semibold"
-                                style={{ color: "#22C55E" }}
-                            >
+                            <Link href="/auth/signup" className="font-semibold" style={{ color: "#22C55E" }}>
                                 Create an account
                             </Link>
                         </p>

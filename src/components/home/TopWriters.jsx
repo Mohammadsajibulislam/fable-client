@@ -2,9 +2,27 @@ import Link from "next/link";
 import { ArrowRight, BookOpen, TrendingUp } from "lucide-react";
 
 const PLACEHOLDER_WRITERS = [
-    { _id: "1", name: "John Grisham",   books: 32, totalSales: "12.5K" },
-    { _id: "2", name: "J.K. Rowling",   books: 28, totalSales: "10.2K" },
-    { _id: "3", name: "Colleen Hoover", books: 18, totalSales: "9.8K" },
+    {
+        _id: "1",
+        name: "Mohammad Sajibul Islam", 
+        books: 32,
+        totalSales: "12.5K",
+        avatar: "https://i.ibb.co.com/67qbgSx8/Whats-App-Image-2026-06-07-at-11-52-07-AM.jpg", 
+    },
+    {
+        _id: "2",
+        name: "Stephen King", 
+        books: 65,
+        totalSales: "15.8K",
+        avatar: "https://i.pravatar.cc/150?img=12", 
+    },
+    {
+        _id: "3",
+        name: "Brandon Sanderson", 
+        books: 24,
+        totalSales: "8.5K",
+        avatar: "https://i.pravatar.cc/150?img=14", 
+    },
 ];
 
 const AVATAR_COLORS = ["#22C55E", "#16A34A", "#15803D"];
@@ -72,16 +90,22 @@ export default async function TopWriters() {
                             }}
                         >
                             {/* Avatar */}
-                            <div
-                                className="w-14 h-14 rounded-2xl flex items-center justify-center text-lg font-bold flex-shrink-0"
-                                style={{
-                                    backgroundColor: AVATAR_COLORS[i] || "#22C55E",
-                                    color: "#0A1A0F",
-                                }}
-                            >
-                                {writer.writerName?.[0] || writer.name?.[0]}
-                            </div>
-
+<div className="w-14 h-14 rounded-2xl overflow-hidden flex-shrink-0">
+    {writer.avatar ? (
+        <img
+            src={writer.avatar}
+            alt={writer.name || writer.writerName}
+            className="w-full h-full object-cover"
+        />
+    ) : (
+        <div
+            className="w-full h-full flex items-center justify-center text-lg font-bold"
+            style={{ backgroundColor: AVATAR_COLORS[i] || "#22C55E", color: "#0A1A0F" }}
+        >
+            {(writer.name || writer.writerName)?.[0]}
+        </div>
+    )}
+</div>
                             {/* Info */}
                             <div className="flex-1 min-w-0">
                                 <h3

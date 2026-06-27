@@ -12,12 +12,22 @@ import { HiOutlineBookOpen } from "react-icons/hi";
 import { BiCalendar, BiWorld } from "react-icons/bi";
 import { RiPagesLine } from "react-icons/ri";
 
+const formatDate = (dateString) => {
+    if (!dateString) return "N/A";
+    return new Date(dateString).toLocaleDateString("en-US", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+    });
+};
+
 export default function EbookDetailsClient({ ebook }) {
     const { data: session } = useSession();
     const user = session?.user;
     const router = useRouter();
 
     const [isBookmarked, setIsBookmarked] = useState(false);
+    const [bookmarkId, setBookmarkId] = useState(null);
     const [activeTab, setActiveTab] = useState("description");
 
     const isOwnBook = user?.id === ebook.writerId;
@@ -48,21 +58,49 @@ export default function EbookDetailsClient({ ebook }) {
 };
 
     const handleBookmark = async () => {
-        if (!user) {
-            router.push("/auth/signin");
-            return;
-        }
-        setIsBookmarked(!isBookmarked);
-        // API call — পরে যোগ হবে
-    };
+    if (!user) {
+        router.push("/auth/signin");
+        return;
+    }
 
-    const formatDate = (dateString) => {
-        return new Date(dateString).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-        });
-    };
+    if (isBookmarked) {
+        // Remove bookmark
+        try {
+            await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/bookmarks/${bookmarkId}`,
+                { method: "DELETE" }
+            );
+            setIsBookmarked(false);
+            setBookmarkId(null);
+        } catch {
+            console.error("Failed to remove bookmark");
+        }
+    } else {
+        // Add bookmark
+        try {
+            const res = await fetch(
+                `${process.env.NEXT_PUBLIC_BASE_URL}/api/bookmarks`,
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: user.id,
+                        ebookId: ebook._id,
+                        ebookTitle: ebook.title,
+                        coverImage: ebook.coverImage,
+                    }),
+                }
+            );
+            const data = await res.json();
+            if (data.insertedId) {
+                setIsBookmarked(true);
+                setBookmarkId(data.insertedId);
+            }
+        } catch {
+            console.error("Failed to add bookmark");
+        }
+    }
+};
 
     return (
         <div style={{ backgroundColor: "#0A1A0F", minHeight: "100vh" }}>

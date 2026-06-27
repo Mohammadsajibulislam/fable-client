@@ -81,19 +81,37 @@ export default function Navbar() {
 
                     <div className="h-6 w-px" style={{ backgroundColor: "#1E3A26" }} />
 
+                    {/* Auth Section */}
                     {user ? (
                         <div className="flex items-center gap-3">
-                            <div className="flex items-center gap-2">
+                            {/* User Avatar + Name + Email */}
+                            <Link
+                                href={`/dashboard/${user.role || "user"}/profile`}
+                                className="flex items-center gap-2.5 group"
+                            >
                                 <div
-                                    className="w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold"
+                                    className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
                                     style={{ backgroundColor: "#22C55E", color: "#0A1A0F" }}
                                 >
                                     {user.name?.[0]?.toUpperCase()}
                                 </div>
-                                <span className="text-sm" style={{ color: "#86EFAC" }}>
-                                    {user.name?.split(" ")[0]}
-                                </span>
-                            </div>
+                                <div className="hidden lg:block text-left">
+                                    <p
+                                        className="text-xs font-semibold leading-none"
+                                        style={{ color: "#F0FDF4" }}
+                                    >
+                                        {user.name?.split(" ")[0]}
+                                    </p>
+                                    <p
+                                        className="text-xs leading-none mt-1"
+                                        style={{ color: "#6B9E7A" }}
+                                    >
+                                        {user.email}
+                                    </p>
+                                </div>
+                            </Link>
+
+                            {/* Sign Out */}
                             <button
                                 onClick={handleSignOut}
                                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all"
@@ -108,14 +126,14 @@ export default function Navbar() {
                                 href="/auth/signin"
                                 className="text-sm font-medium"
                                 style={{
-                                    color: isActive("/auth/signin") ? "#22C55E" : "#86EFAC"
+                                    color: isActive("/auth/signin") ? "#22C55E" : "#86EFAC",
                                 }}
                             >
                                 Sign In
                             </Link>
                             <Link
                                 href="/auth/signup"
-                                className="px-5 py-2 rounded-full text-sm font-semibold"
+                                className="px-5 py-2 rounded-full text-sm font-semibold transition-all"
                                 style={{ backgroundColor: "#22C55E", color: "#0A1A0F" }}
                             >
                                 Get Started
@@ -141,6 +159,8 @@ export default function Navbar() {
                     style={{ backgroundColor: "#0A1A0F", borderColor: "#1E3A26" }}
                 >
                     <div className="px-4 py-5 space-y-2">
+
+                        {/* Mobile Nav Links */}
                         {navLinks.map((link) => (
                             <Link
                                 key={link.href}
@@ -158,22 +178,61 @@ export default function Navbar() {
                             </Link>
                         ))}
 
-                        <div className="pt-3 border-t" style={{ borderColor: "#1E3A26" }}>
+                        <div
+                            className="pt-3 border-t"
+                            style={{ borderColor: "#1E3A26" }}
+                        >
                             {user ? (
-                                <button
-                                    onClick={handleSignOut}
-                                    className="w-full text-left px-4 py-2.5 rounded-xl text-sm"
-                                    style={{ color: "#6B9E7A" }}
-                                >
-                                    Sign Out
-                                </button>
+                                <div className="space-y-3">
+                                    {/* Mobile User Info */}
+                                    <Link
+                                        href={`/dashboard/${user.role || "user"}/profile`}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="flex items-center gap-3 px-4 py-2.5 rounded-xl"
+                                        style={{ backgroundColor: "rgba(34,197,94,0.05)" }}
+                                    >
+                                        <div
+                                            className="w-9 h-9 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                                            style={{ backgroundColor: "#22C55E", color: "#0A1A0F" }}
+                                        >
+                                            {user.name?.[0]?.toUpperCase()}
+                                        </div>
+                                        <div>
+                                            <p
+                                                className="text-sm font-semibold"
+                                                style={{ color: "#F0FDF4" }}
+                                            >
+                                                {user.name}
+                                            </p>
+                                            <p
+                                                className="text-xs"
+                                                style={{ color: "#6B9E7A" }}
+                                            >
+                                                {user.email}
+                                            </p>
+                                        </div>
+                                    </Link>
+
+                                    {/* Sign Out */}
+                                    <button
+                                        onClick={handleSignOut}
+                                        className="w-full flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm"
+                                        style={{ color: "#6B9E7A" }}
+                                    >
+                                        <LogOut size={16} />
+                                        Sign Out
+                                    </button>
+                                </div>
                             ) : (
                                 <div className="flex flex-col gap-2">
                                     <Link
                                         href="/auth/signin"
                                         onClick={() => setIsMenuOpen(false)}
                                         className="px-4 py-2.5 rounded-xl text-sm font-medium text-center"
-                                        style={{ color: "#86EFAC", border: "1px solid #1E3A26" }}
+                                        style={{
+                                            color: "#86EFAC",
+                                            border: "1px solid #1E3A26",
+                                        }}
                                     >
                                         Sign In
                                     </Link>

@@ -63,12 +63,22 @@ export default function EbookDetailsClient({ ebook }) {
         return;
     }
 
+    // Token নেওয়া
+    const session = await authClient.getSession();
+    const token = session?.data?.session?.token || "";
+    const authHeaders = {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${token}`,
+    };
+
     if (isBookmarked) {
-        // Remove bookmark
         try {
             await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/bookmarks/${bookmarkId}`,
-                { method: "DELETE" }
+                {
+                    method: "DELETE",
+                    headers: authHeaders,
+                }
             );
             setIsBookmarked(false);
             setBookmarkId(null);
@@ -76,13 +86,12 @@ export default function EbookDetailsClient({ ebook }) {
             console.error("Failed to remove bookmark");
         }
     } else {
-        // Add bookmark
         try {
             const res = await fetch(
                 `${process.env.NEXT_PUBLIC_BASE_URL}/api/bookmarks`,
                 {
                     method: "POST",
-                    headers: { "Content-Type": "application/json" },
+                    headers: authHeaders,
                     body: JSON.stringify({
                         userId: user.id,
                         ebookId: ebook._id,

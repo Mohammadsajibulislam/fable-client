@@ -29,8 +29,3 @@ A digital platform connecting ebook lovers, readers, and collectors with talente
 - react-icons (icons)
 - @heroui/react, @heroui/styles (UI components)
 - tailwindcss (styling)
-
-## Admin Credentials
-
-- Email: admin@fable.com
-- Password: Admin@123

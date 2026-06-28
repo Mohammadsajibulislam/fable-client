@@ -9,7 +9,6 @@ import { MdEmail, MdCheckCircle } from "react-icons/md";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
-// Toast Component
 function Toast({ message, type, onClose }) {
     useEffect(() => {
         const timer = setTimeout(onClose, 3000);
@@ -18,8 +17,10 @@ function Toast({ message, type, onClose }) {
 
     return (
         <div
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
+            className="fixed z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
             style={{
+                top: "80px",
+                right: "16px",
                 backgroundColor: type === "success"
                     ? "rgba(34,197,94,0.15)"
                     : "rgba(220,38,38,0.15)",
@@ -27,10 +28,7 @@ function Toast({ message, type, onClose }) {
                 color: type === "success" ? "#86EFAC" : "#FCA5A5",
             }}
         >
-            <MdCheckCircle
-                size={18}
-                style={{ color: type === "success" ? "#22C55E" : "#DC2626" }}
-            />
+            <MdCheckCircle size={18} style={{ color: type === "success" ? "#22C55E" : "#DC2626" }} />
             {message}
         </div>
     );
@@ -45,21 +43,14 @@ export default function SignInPage() {
     const [toast, setToast] = useState(null);
     const router = useRouter();
 
-    const showToast = (message, type = "success") => {
-        setToast({ message, type });
-    };
+    const showToast = (message, type = "success") => setToast({ message, type });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         setIsLoading(true);
-
         try {
-            const { data, error: authError } = await signIn.email({
-                email,
-                password,
-            });
-
+            const { error: authError } = await signIn.email({ email, password });
             if (authError) {
                 setError(authError.message || "Invalid email or password.");
                 showToast(authError.message || "Sign in failed.", "error");
@@ -67,7 +58,7 @@ export default function SignInPage() {
                 showToast("Welcome back! Signed in successfully.");
                 setTimeout(() => router.push("/"), 1500);
             }
-        } catch (err) {
+        } catch {
             setError("An unexpected error occurred.");
             showToast("An unexpected error occurred.", "error");
         } finally {
@@ -80,7 +71,6 @@ export default function SignInPage() {
             className="min-h-screen flex items-center justify-center px-4 py-16"
             style={{ backgroundColor: "#0A1A0F" }}
         >
-            {/* Toast */}
             {toast && (
                 <Toast
                     message={toast.message}
@@ -90,7 +80,6 @@ export default function SignInPage() {
             )}
 
             <div className="w-full max-w-md">
-                {/* Logo */}
                 <div className="flex flex-col items-center mb-8">
                     <div className="relative w-12 h-12 mb-3">
                         <Image src="/logo1.png" alt="Fable" fill className="object-contain" />
@@ -106,14 +95,12 @@ export default function SignInPage() {
                     </p>
                 </div>
 
-                {/* Card */}
                 <div
                     className="rounded-2xl p-8"
                     style={{ backgroundColor: "#111F16", border: "1px solid #1E3A26" }}
                 >
                     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
 
-                        {/* Email */}
                         <div className="flex flex-col gap-1.5">
                             <label className="text-sm font-medium" style={{ color: "#86EFAC" }}>
                                 Email Address
@@ -135,7 +122,6 @@ export default function SignInPage() {
                             </div>
                         </div>
 
-                        {/* Password */}
                         <div className="flex flex-col gap-1.5">
                             <label className="text-sm font-medium" style={{ color: "#86EFAC" }}>
                                 Password
@@ -159,15 +145,11 @@ export default function SignInPage() {
                                     onClick={() => setIsVisible(!isVisible)}
                                     style={{ color: "#6B9E7A" }}
                                 >
-                                    {isVisible
-                                        ? <AiOutlineEyeInvisible size={18} />
-                                        : <AiOutlineEye size={18} />
-                                    }
+                                    {isVisible ? <AiOutlineEyeInvisible size={18} /> : <AiOutlineEye size={18} />}
                                 </button>
                             </div>
                         </div>
 
-                        {/* Error */}
                         {error && (
                             <div
                                 className="p-3 rounded-xl text-xs font-medium"
@@ -181,7 +163,6 @@ export default function SignInPage() {
                             </div>
                         )}
 
-                        {/* Submit */}
                         <button
                             type="submit"
                             disabled={isLoading}
@@ -194,7 +175,6 @@ export default function SignInPage() {
                             {isLoading ? "Signing in..." : "Sign In"}
                         </button>
 
-                        {/* Link */}
                         <p className="text-center text-sm" style={{ color: "#6B9E7A" }}>
                             New to Fable?{" "}
                             <Link href="/auth/signup" className="font-semibold" style={{ color: "#22C55E" }}>

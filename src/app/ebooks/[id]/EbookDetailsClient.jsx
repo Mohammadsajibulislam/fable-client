@@ -21,14 +21,22 @@ function Toast({ message, type, onClose }) {
 
     return (
         <div
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
+            className="fixed z-50 flex items-center gap-3 px-5 py-3 rounded-xl shadow-xl text-sm font-medium"
             style={{
-                backgroundColor: type === "success" ? "rgba(34,197,94,0.15)" : "rgba(220,38,38,0.15)",
+                // Navbar এর ঠিক নিচে, right side এ
+                top: "80px",
+                right: "16px",
+                backgroundColor: type === "success"
+                    ? "rgba(34,197,94,0.15)"
+                    : "rgba(220,38,38,0.15)",
                 border: `1px solid ${type === "success" ? "#22C55E" : "#DC2626"}`,
                 color: type === "success" ? "#86EFAC" : "#FCA5A5",
             }}
         >
-            <MdCheckCircle size={18} style={{ color: type === "success" ? "#22C55E" : "#DC2626" }} />
+            <MdCheckCircle
+                size={18}
+                style={{ color: type === "success" ? "#22C55E" : "#DC2626" }}
+            />
             {message}
         </div>
     );

@@ -143,66 +143,59 @@ export default function AdminStats({ stats }) {
                 </div>
 
                 {/* Ebooks by Genre Pie Chart */}
-                <div
-                    className="rounded-2xl p-6"
-                    style={{
-                        backgroundColor: "#111F16",
-                        border: "1px solid #1E3A26",
-                    }}
-                >
-                    <h3
-                        className="font-semibold mb-5"
-                        style={{ color: "#F0FDF4" }}
-                    >
-                        Ebooks by Genre
-                    </h3>
-                    <ResponsiveContainer width="100%" height={220}>
-                        <PieChart>
-                            <Pie
-                                data={genreData.length ? genreData : [
-                                    { name: "Fiction", value: 35 },
-                                    { name: "Romance", value: 20 },
-                                    { name: "Mystery", value: 15 },
-                                    { name: "Sci-Fi", value: 10 },
-                                    { name: "Fantasy", value: 12 },
-                                    { name: "Others", value: 8 },
-                                ]}
-                                cx="50%"
-                                cy="50%"
-                                innerRadius={55}
-                                outerRadius={85}
-                                paddingAngle={3}
-                                dataKey="value"
-                            >
-                                {(genreData.length
-                                    ? genreData
-                                    : [1, 2, 3, 4, 5, 6]
-                                ).map((_, index) => (
-                                    <Cell
-                                        key={index}
-                                        fill={COLORS[index % COLORS.length]}
-                                    />
-                                ))}
-                            </Pie>
-                            <Tooltip
-                                contentStyle={{
-                                    backgroundColor: "#0A1A0F",
-                                    border: "1px solid #1E3A26",
-                                    borderRadius: "12px",
-                                    color: "#F0FDF4",
-                                }}
-                            />
-                            <Legend
-                                iconType="circle"
-                                iconSize={8}
-                                wrapperStyle={{
-                                    color: "#6B9E7A",
-                                    fontSize: "12px",
-                                }}
-                            />
-                        </PieChart>
-                    </ResponsiveContainer>
-                </div>
+<div
+    className="rounded-2xl p-6"
+    style={{ backgroundColor: "#111F16", border: "1px solid #1E3A26" }}
+>
+    <h3 className="font-semibold mb-5" style={{ color: "#F0FDF4" }}>
+        Ebooks by Genre
+    </h3>
+    <ResponsiveContainer width="100%" height={280}>
+        <PieChart>
+            <Pie
+                data={genreData.length ? genreData : [
+                    { name: "Fiction", value: 35 },
+                    { name: "Romance", value: 20 },
+                    { name: "Mystery", value: 15 },
+                    { name: "Sci-Fi", value: 10 },
+                    { name: "Fantasy", value: 12 },
+                    { name: "Others", value: 8 },
+                ]}
+                cx="50%"
+                cy="45%"
+                innerRadius={50}
+                outerRadius={80}
+                paddingAngle={3}
+                dataKey="value"
+            >
+                {(genreData.length ? genreData : [1,2,3,4,5,6]).map((_, index) => (
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                ))}
+            </Pie>
+            <Tooltip
+                contentStyle={{
+                    backgroundColor: "#0A1A0F",
+                    border: "1px solid #1E3A26",
+                    borderRadius: "12px",
+                    color: "#F0FDF4",
+                    fontSize: "12px",
+                }}
+            />
+            <Legend
+                iconType="circle"
+                iconSize={8}
+                layout="horizontal"
+                verticalAlign="bottom"
+                align="center"
+                wrapperStyle={{
+                    color: "#6B9E7A",
+                    fontSize: "11px",
+                    paddingTop: "16px",
+                }}
+            />
+        </PieChart>
+    </ResponsiveContainer>
+</div>
             </div>
         </div>
     );
